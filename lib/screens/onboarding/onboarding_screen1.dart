@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/arrow_button.dart';
 import '../../widgets/skip_button.dart';
+import '../home/home_page.dart';
 import 'onboarding_screen2.dart';
 
 class OnboardingScreen1 extends StatelessWidget {
@@ -20,7 +21,7 @@ class OnboardingScreen1 extends StatelessWidget {
                 SkipButton(onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const OnboardingScreen2()),
+                    MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 }),
               ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/arrow_button.dart';
-import '../../widgets/skip_button.dart';
+import '../home/home_page.dart';
 
 class OnboardingScreen2 extends StatelessWidget {
   const OnboardingScreen2({super.key});
@@ -12,15 +12,6 @@ class OnboardingScreen2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Skip button at the top right corner
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SkipButton(onPressed: () {
-                  // Navigate to the home page (implement this navigation as needed)
-                }),
-              ],
-            ),
 
             // GIF image in the center
             Expanded(
@@ -60,7 +51,10 @@ class OnboardingScreen2 extends StatelessWidget {
 
             // Next button at the bottom right corner
             ArrowButton(onPressed: () {
-              // Navigate to the home page (implement this navigation as needed)
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
             }),
           ],
         ),
