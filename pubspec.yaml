@@ -63,9 +63,11 @@ flutter:
     - assets/images/products/mens/
     - assets/images/products/womens/
     - assets/images/products/accessories/
-    - assets/images/home/
     - assets/images/banners/
     - assets/images/gifs/
+    - assets/icons/
+    - assets/images/products/featured/
+    - assets/images/products/newArrivals/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
