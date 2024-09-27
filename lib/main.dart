@@ -1,36 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:glitzstore/screens/profile/profile.dart';
-
+import 'screens/home/home_page.dart';
+import 'screens/store/store.dart';
+import 'screens/wishlist/wishlist.dart';
+import 'screens/profile/profile.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  static _MyAppState? of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>();
+
   @override
   _MyAppState createState() => _MyAppState();
-
-  // Allows accessing the app's theme globally
-  static _MyAppState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeData _themeData = ThemeData.light(); // Default theme is light
+  ThemeMode _themeMode = ThemeMode.light; // Default to light theme
 
-  // Method to change the theme globally
-  void setTheme(ThemeData theme) {
+  void setTheme(ThemeMode themeMode) {
     setState(() {
-      _themeData = theme;
+      _themeMode = themeMode;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Theme Toggle',
-      theme: _themeData, // Apply the current theme
-      home: const ProfilePage(), // Point to your ProfilePage
+      title: 'Flutter Demo',
+      theme: ThemeData.light(), // Light theme
+      darkTheme: ThemeData.dark(), // Dark theme
+      themeMode: _themeMode, // Use themeMode for dynamic switching
+      initialRoute: '/home',
+      routes: {
+        '/home': (context) => const HomePage(),
+        '/store': (context) => const StorePage(),
+        '/wishlist': (context) => const WishlistPage(),
+        '/profile': (context) => const ProfilePage(),
+      },
     );
   }
 }

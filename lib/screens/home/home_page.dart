@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../widgets/bottomnav.dart';
 import '../cart/cart.dart';
 import '../product_details/product_detail1.dart';
-// import '../product_details/product_detail2.dart';
+import '../profile/profile.dart';
+import '../store/store.dart';
+import '../wishlist/wishlist.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentBannerIndex = 0; // Not final, so you can update it
+  int _currentBannerIndex = 0;
+  int _selectedIndex = 0;
 
   final List<String> banners = [
     'assets/images/banners/banner1.png',
@@ -40,25 +44,11 @@ class _HomePageState extends State<HomePage> {
     {
       'image': 'assets/images/products/newArrivals/newar1.jpg',
       'name': 'Nike Sneakers',
-      // 'brand': 'Nike',
       'price': '\$150',
     },
     {
       'image': 'assets/images/products/newArrivals/newar2.jpg',
       'name': 'Adidas Sports Shoe',
-      // 'brand': 'Adidas',
-      'price': '\$120',
-    },
-    {
-      'image': 'assets/images/products/newArrivals/newar2.jpg',
-      'name': 'Adidas Sports Shoe',
-      // 'brand': 'Adidas',
-      'price': '\$120',
-    },
-    {
-      'image': 'assets/images/products/newArrivals/newar2.jpg',
-      'name': 'Adidas Sports Shoe',
-      // 'brand': 'Adidas',
       'price': '\$120',
     },
   ];
@@ -67,91 +57,103 @@ class _HomePageState extends State<HomePage> {
     {
       'image': 'assets/images/products/featured/feat1.jpg',
       'name': 'Puma Running Shoe',
-      // 'brand': 'Puma',
       'price': '\$100',
     },
     {
       'image': 'assets/images/products/featured/feat2.jpg',
       'name': 'Reebok Classic',
-      // 'brand': 'Reebok',
       'price': '\$110',
-    },
-    {
-      'image': 'assets/images/products/featured/feat1.jpg',
-      'name': 'Puma Running Shoe',
-      // 'brand': 'Puma',
-      'price': '\$100',
-    },
-    {
-      'image': 'assets/images/products/featured/feat1.jpg',
-      'name': 'Puma Running Shoe',
-      // 'brand': 'Puma',
-      'price': '\$100',
     },
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+        break;
+      case 1:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const StorePage()));
+        break;
+      case 2:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WishlistPage()));
+        break;
+      case 3:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Container(
-        color: Colors.blueAccent, // Set the background color here
+        color: isDarkTheme ? Colors.black : Colors.white, // Set the background color
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildAppBar(),
-              _buildPopularCategories(),
-              _buildBodySection(),
+              _buildAppBar(isDarkTheme),
+              _buildPopularCategories(isDarkTheme),
+              _buildBodySection(isDarkTheme),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNav(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
 
   // Custom App Bar with interactive search field and Cart Button
-  Widget _buildAppBar() {
+  Widget _buildAppBar(bool isDarkTheme) {
     return Stack(
       children: [
         Container(
-          padding: const EdgeInsets.all(20.0), // Further increased height of the app bar
-          color: Colors.blue,
+          padding: const EdgeInsets.all(20.0),
+          color: Colors.blue, // Keep the app bar blue
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Good day for shopping,',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
-                  color: Colors.white,
+                  color: isDarkTheme ? Colors.white : Colors.black, // Greeting text changes based on theme
                 ),
               ),
-              const Text(
+              Text(
                 'Taimoor Sikander',
                 style: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,  // Semi-bold for the name
-                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  color: isDarkTheme ? Colors.white : Colors.black, // Name text changes based on theme
                 ),
               ),
               const SizedBox(height: 10),
               GestureDetector(
-                onTap: () {
-                  // You can define the onTap logic here if needed (such as opening a search page).
-                },
+                onTap: () {},
                 child: Container(
                   height: 50,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDarkTheme ? Colors.black : Colors.white, // Search box changes to black in dark mode
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const TextField(
+                  child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Search in Store',
-                      icon: Icon(Icons.search, color: Colors.grey),
+                      hintStyle: TextStyle(color: isDarkTheme ? Colors.white70 : Colors.grey),
+                      icon: Icon(Icons.search, color: isDarkTheme ? Colors.white : Colors.grey),
                     ),
                   ),
                 ),
@@ -163,7 +165,7 @@ class _HomePageState extends State<HomePage> {
           top: 20,
           right: 20,
           child: IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
+            icon: Icon(Icons.shopping_cart_outlined, color: isDarkTheme ? Colors.white : Colors.black), // Cart icon color
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
             },
@@ -173,27 +175,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Scrollable popular categories section with "Popular Categories" text
-  Widget _buildPopularCategories() {
+  // Scrollable popular categories section
+  Widget _buildPopularCategories(bool isDarkTheme) {
     return Container(
-      color: Colors.blue,  // Extend the blue color below categories
+      color: Colors.blue,  // Keep this blue
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Popular Categories',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: isDarkTheme ? Colors.white : Colors.black, // Change text color based on theme
               ),
             ),
           ),
           const SizedBox(height: 8),
           SizedBox(
-            height: 100,  // Adjusted to fit both icons and text
+            height: 100,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: categories.length,
@@ -203,14 +205,14 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 30,  // Circle size remains same
-                        child: Icon(categories[index], color: Colors.black, size: 30), // Increased icon size
+                        backgroundColor: isDarkTheme ? Colors.grey[850] : Colors.white, // Category icon background
+                        radius: 30,
+                        child: Icon(categories[index], color: isDarkTheme ? Colors.white : Colors.black, size: 30),
                       ),
                       const SizedBox(height: 5),
                       Text(
                         categoryNames[index],
-                        style: const TextStyle(fontSize: 12, color: Colors.white),
+                        style: TextStyle(fontSize: 12, color: isDarkTheme ? Colors.white : Colors.black), // Text color
                       ),
                     ],
                   ),
@@ -223,12 +225,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Body section with rounded edges containing the banners and products
-  Widget _buildBodySection() {
+  // Body section with banners and products
+  Widget _buildBodySection(bool isDarkTheme) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: isDarkTheme ? Colors.black : Colors.white, // Background color
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -242,16 +244,15 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 16),
             _buildProgressBar(),
             const SizedBox(height: 16),
-            _buildNewArrivals(),
+            _buildNewArrivals(isDarkTheme),
             const SizedBox(height: 16),
-            _buildFeaturedProducts(),
+            _buildFeaturedProducts(isDarkTheme),
           ],
         ),
       ),
     );
   }
 
-  // Banner section with smaller size and padding from the sides
   Widget _buildBannerSection() {
     return SizedBox(
       height: 160,
@@ -275,7 +276,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Progress bar for the banner
   Widget _buildProgressBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -293,20 +293,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // New Arrivals section - scrollable
-  Widget _buildNewArrivals() {
+  Widget _buildNewArrivals(bool isDarkTheme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('New Arrivals', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Text('NEW ARRIVALS', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 15),
         SizedBox(
-          height: 300,  // Set height for the scrollable row
+          height: 300,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: newArrivals.length,
             itemBuilder: (context, index) {
-              return _buildProductCard(newArrivals[index]);
+              return _buildProductCard(newArrivals[index], isDarkTheme);
             },
           ),
         ),
@@ -314,20 +313,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Featured Products section - scrollable
-  Widget _buildFeaturedProducts() {
+  Widget _buildFeaturedProducts(bool isDarkTheme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Featured Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Text('FEATURED PRODUCTS', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 16),
         SizedBox(
-          height: 300,  // Set height for the scrollable row
+          height: 300,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: featuredProducts.length,
             itemBuilder: (context, index) {
-              return _buildProductCard(featuredProducts[index]);
+              return _buildProductCard(featuredProducts[index], isDarkTheme);
             },
           ),
         ),
@@ -335,8 +333,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Product card builder for both New Arrivals and Featured Products
-  Widget _buildProductCard(Map<String, dynamic> product) {
+  Widget _buildProductCard(Map<String, dynamic> product, bool isDarkTheme) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0),
       child: GestureDetector(
@@ -344,8 +341,9 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductDetail1()));
         },
         child: SizedBox(
-          width: 165,  // Adjust width of the card
+          width: 165,
           child: Card(
+            color: isDarkTheme ? Colors.grey[850] : Colors.white, // Card color changes based on theme
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,7 +354,7 @@ class _HomePageState extends State<HomePage> {
                     child: Image.asset(
                       product['image'],
                       width: double.infinity,
-                      height: 120,  // Increased image size
+                      height: 120,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -367,14 +365,12 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(product['name'], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                      // Text(product['brand'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                      // const SizedBox(height: 0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(product['price'], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                           IconButton(
-                            icon: const Icon(Icons.shopping_cart_outlined),
+                            icon: Icon(Icons.shopping_cart_outlined, color: isDarkTheme ? Colors.white : Colors.black),
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
                             },

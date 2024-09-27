@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import '../../theme/theme.dart';
-import 'edit_profile.dart'; // Make sure EditProfilePage exists
+import '../../widgets/bottomnav.dart';
+import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,51 +11,71 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _isDarkTheme = false; // For the theme toggle
+  int _selectedIndex = 3; // Set ProfilePage as selected
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, '/home');
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, '/store');
+        break;
+      case 2:
+        Navigator.pushReplacementNamed(context, '/wishlist');
+        break;
+      case 3:
+      // Already on profile page
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 160, // Increased height for the AppBar
-        backgroundColor: _isDarkTheme ? Colors.grey[900] : Colors.blueAccent, // Change AppBar color based on theme
-        flexibleSpace: _buildHeader(), // Custom header with profile info
+        toolbarHeight: 160,
+        backgroundColor: isDarkMode ? Colors.grey[850] : Colors.blueAccent, // Dark grey for dark mode, blue for light mode
+        flexibleSpace: _buildHeader(),
       ),
       body: Column(
         children: [
-          const SizedBox(height: 0), // Add some space
-
-          // Reintroducing Account Settings section with regular background color
+          const SizedBox(height: 0),
           _buildAccountSettings(),
+          const SizedBox(height: 20),
 
-          const SizedBox(height: 20), // Add more space
-
-          // Toggle button directly below the list
+          // Toggle button for Dark Mode
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ListTile(
               leading: const Icon(Icons.brightness_6),
               title: const Text('Dark Mode'),
               trailing: Switch(
-                activeColor: _isDarkTheme ? Colors.white : Theme.of(context).primaryColor, // White in dark mode
-                value: _isDarkTheme,
+                value: isDarkMode,
                 onChanged: (value) {
-                  setState(() {
-                    _isDarkTheme = value; // Update the state
-                    _changeTheme(); // Call the function to change the theme globally
-                  });
+                  if (value) {
+                    MyApp.of(context)?.setTheme(ThemeMode.dark); // Switch to dark mode
+                  } else {
+                    MyApp.of(context)?.setTheme(ThemeMode.light); // Switch to light mode
+                  }
                 },
               ),
             ),
           ),
 
-          const SizedBox(height: 20), // Add more space
+          const SizedBox(height: 20),
 
-          // Updated Logout button with increased width
+          // Updated Logout button
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: SizedBox(
-              width: double.infinity, // Full width for the button
+              width: double.infinity,
               child: OutlinedButton(
                 onPressed: () {
                   print('User logged out');
@@ -66,15 +86,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   side: BorderSide(
-                    color: _isDarkTheme ? Colors.white : Colors.black,
+                    color: isDarkMode ? Colors.white : Colors.black,
                     width: 1,
                   ),
-                  backgroundColor: _isDarkTheme ? Colors.black : Colors.white,
+                  backgroundColor: isDarkMode ? Colors.black : Colors.white,
                 ),
                 child: Text(
                   'Logout',
                   style: TextStyle(
-                    color: _isDarkTheme ? Colors.white : Colors.black,
+                    color: isDarkMode ? Colors.white : Colors.black,
                     fontSize: 16,
                   ),
                 ),
@@ -83,15 +103,19 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNav(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 
-  // Profile Picture, Name, Email, and Edit Button in the App Bar (Blue or Dark Ash Section)
+  // Profile Header with Picture and Edit Button
   Widget _buildHeader() {
     return Padding(
-      padding: const EdgeInsets.all(20.0), // Add padding around the content
+      padding: const EdgeInsets.all(20.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end, // Align content at the bottom of AppBar
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,10 +124,10 @@ class _ProfilePageState extends State<ProfilePage> {
               Row(
                 children: [
                   const CircleAvatar(
-                    radius: 45, // Larger profile picture size
-                    backgroundImage: AssetImage('assets/images/profile/profile.png'), // Profile picture
+                    radius: 45,
+                    backgroundImage: AssetImage('assets/images/profile/profile.png'),
                   ),
-                  const SizedBox(width: 20), // Space between image and text
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -111,15 +135,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         'Hannan Munas',
                         style: TextStyle(
                           fontSize: 22,
-                          fontWeight: FontWeight.bold, // Bold name
-                          color: Colors.white, // Text color stays white in both modes
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                       Text(
                         'CB011253@Students.apiit.lk',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white70, // Email color remains light
+                          color: Colors.white70,
                         ),
                       ),
                     ],
@@ -127,11 +151,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.edit, color: Colors.white), // Icon color stays white
+                icon: const Icon(Icons.edit, color: Colors.white),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const EditProfilePage()), // Navigate to EditProfilePage
+                    MaterialPageRoute(builder: (context) => const EditProfilePage()),
                   );
                 },
               ),
@@ -142,11 +166,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  // Account Settings List with regular color scheme
+  // Account Settings List
   Widget _buildAccountSettings() {
     return Container(
       decoration: BoxDecoration(
-        color: _isDarkTheme ? Colors.black : Colors.white, // Background color for Account Settings
+        color: Theme.of(context).cardColor,
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
@@ -164,11 +188,10 @@ class _ProfilePageState extends State<ProfilePage> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: _isDarkTheme ? Colors.white : Colors.black, // Text color adapts to theme
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           const SizedBox(height: 10),
-          // Updated list items
           _buildListTile(Icons.shopping_cart, 'My Cart', 'Add, remove products and move to checkout'),
           _buildListTile(Icons.list, 'My Orders', 'In-progress and completed orders'),
           _buildListTile(Icons.notifications, 'Notifications', 'Set notifications preferences'),
@@ -179,27 +202,18 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  // ListTile builder for reusability
+  // ListTile builder
   Widget _buildListTile(IconData icon, String title, String subtitle) {
     return ListTile(
-      leading: Icon(icon, color: _isDarkTheme ? Colors.white : Colors.black), // Icon color adapts to theme
+      leading: Icon(icon, color: Theme.of(context).iconTheme.color),
       title: Text(
         title,
-        style: TextStyle(color: _isDarkTheme ? Colors.white : Colors.black), // Text color adapts to theme
+        style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
       ),
       subtitle: Text(
         subtitle,
-        style: TextStyle(color: _isDarkTheme ? Colors.white70 : Colors.black54), // Subtitle adapts to theme
+        style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color),
       ),
     );
-  }
-
-  // Change Theme Function
-  void _changeTheme() {
-    if (_isDarkTheme) {
-      MyApp.of(context)?.setTheme(AppTheme.darkTheme); // Switch to dark theme
-    } else {
-      MyApp.of(context)?.setTheme(AppTheme.lightTheme); // Switch to light theme
-    }
   }
 }
