@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../cart/cart.dart';
 import '../product_details/product_detail1.dart';
-import '../product_details/product_detail2.dart';
+// import '../product_details/product_detail2.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentBannerIndex = 0;
+  int _currentBannerIndex = 0; // Not final, so you can update it
 
   final List<String> banners = [
     'assets/images/banners/banner1.png',
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     Icons.shopping_bag,
     Icons.chair,
     Icons.phone_android,
-    Icons.account_circle,
+    Icons.pages_rounded,
     Icons.pets,
     Icons.sports_basketball,
     Icons.watch,
@@ -40,13 +40,25 @@ class _HomePageState extends State<HomePage> {
     {
       'image': 'assets/images/products/newArrivals/newar1.jpg',
       'name': 'Nike Sneakers',
-      'brand': 'Nike',
+      // 'brand': 'Nike',
       'price': '\$150',
     },
     {
       'image': 'assets/images/products/newArrivals/newar2.jpg',
       'name': 'Adidas Sports Shoe',
-      'brand': 'Adidas',
+      // 'brand': 'Adidas',
+      'price': '\$120',
+    },
+    {
+      'image': 'assets/images/products/newArrivals/newar2.jpg',
+      'name': 'Adidas Sports Shoe',
+      // 'brand': 'Adidas',
+      'price': '\$120',
+    },
+    {
+      'image': 'assets/images/products/newArrivals/newar2.jpg',
+      'name': 'Adidas Sports Shoe',
+      // 'brand': 'Adidas',
       'price': '\$120',
     },
   ];
@@ -55,27 +67,39 @@ class _HomePageState extends State<HomePage> {
     {
       'image': 'assets/images/products/featured/feat1.jpg',
       'name': 'Puma Running Shoe',
-      'brand': 'Puma',
+      // 'brand': 'Puma',
       'price': '\$100',
     },
     {
       'image': 'assets/images/products/featured/feat2.jpg',
       'name': 'Reebok Classic',
-      'brand': 'Reebok',
+      // 'brand': 'Reebok',
       'price': '\$110',
+    },
+    {
+      'image': 'assets/images/products/featured/feat1.jpg',
+      'name': 'Puma Running Shoe',
+      // 'brand': 'Puma',
+      'price': '\$100',
+    },
+    {
+      'image': 'assets/images/products/featured/feat1.jpg',
+      'name': 'Puma Running Shoe',
+      // 'brand': 'Puma',
+      'price': '\$100',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(  // Change SafeArea to Container
-        color: Colors.blue,  // Set the background color here to extend to the edge
+      body: Container(
+        color: Colors.blueAccent, // Set the background color here
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildAppBar(),  // Ensure this app bar is part of the Container
+              _buildAppBar(),
               _buildPopularCategories(),
               _buildBodySection(),
             ],
@@ -104,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const Text(
-                'Hannan Munas',
+                'Taimoor Sikander',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,  // Semi-bold for the name
@@ -275,9 +299,9 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('New Arrivals', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 16),
+        const SizedBox(height: 15),
         SizedBox(
-          height: 260,  // Set height for the scrollable row
+          height: 300,  // Set height for the scrollable row
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: newArrivals.length,
@@ -298,7 +322,7 @@ class _HomePageState extends State<HomePage> {
         const Text('Featured Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 16),
         SizedBox(
-          height: 260,  // Set height for the scrollable row
+          height: 300,  // Set height for the scrollable row
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: featuredProducts.length,
@@ -314,13 +338,13 @@ class _HomePageState extends State<HomePage> {
   // Product card builder for both New Arrivals and Featured Products
   Widget _buildProductCard(Map<String, dynamic> product) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail1()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductDetail1()));
         },
         child: SizedBox(
-          width: 160,  // Adjust width of the card
+          width: 165,  // Adjust width of the card
           child: Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Column(
@@ -332,19 +356,19 @@ class _HomePageState extends State<HomePage> {
                     child: Image.asset(
                       product['image'],
                       width: double.infinity,
-                      height: 180,  // Increased image size
+                      height: 120,  // Increased image size
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(product['name'], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                      Text(product['brand'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                      // const SizedBox(height: 5),
+                      // Text(product['brand'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      // const SizedBox(height: 0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
