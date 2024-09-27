@@ -19,18 +19,18 @@ class _WishlistPageState extends State<WishlistPage> {
   // Wishlist products
   final List<Map<String, dynamic>> wishlistItems = [
     {
-      'image': 'assets/images/products/womens/product1.jpg',
-      'name': 'Green Nike sports shoe',
+      'image': 'assets/images/products/womens/wom1.jpg',
+      'name': 'Womens Clothing',
       'price': 334.0,
     },
     {
-      'image': 'assets/images/products/womens/product2.jpg',
-      'name': 'Nike Air Jordan Shoes',
+      'image': 'assets/images/products/mens/men1.jpg',
+      'name': 'Mens Wear',
       'price': 135.0,
     },
     {
-      'image': 'assets/images/products/womens/product3.jpg',
-      'name': 'Adidas Sports Bag',
+      'image': 'assets/images/products/accessories/acc2.jpg',
+      'name': 'Accessories',
       'price': 50.0,
     },
   ];
@@ -68,7 +68,7 @@ class _WishlistPageState extends State<WishlistPage> {
               crossAxisCount: 2, // 2 items per row
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
-              childAspectRatio: 0.7, // Adjust the ratio for better alignment
+              childAspectRatio: 0.6, // Adjust the ratio for better alignment
             ),
             itemCount: wishlistItems.length,
             itemBuilder: (context, index) {

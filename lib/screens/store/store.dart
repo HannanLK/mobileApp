@@ -37,23 +37,23 @@ class _StorePageState extends State<StorePage> with SingleTickerProviderStateMix
   ];
 
   final List<Map<String, dynamic>> womensProducts = [
-    {'image': 'assets/images/products/womens/wom1.jpg', 'name': 'Womens Dress', 'price': 120.0},
-    {'image': 'assets/images/products/womens/wom2.jpg', 'name': 'Womens Handbag', 'price': 80.0},
-    {'image': 'assets/images/products/womens/wom3.jpg', 'name': 'Womens Dress', 'price': 120.0},
-    {'image': 'assets/images/products/womens/wom4.jpg', 'name': 'Womens Handbag', 'price': 80.0},
-    {'image': 'assets/images/products/womens/wom5.jpg', 'name': 'Womens Dress', 'price': 120.0},
-    {'image': 'assets/images/products/womens/wom6.jpg', 'name': 'Womens Handbag', 'price': 80.0},
-    {'image': 'assets/images/products/womens/wom7.jpg', 'name': 'Womens Dress', 'price': 120.0},
-    {'image': 'assets/images/products/womens/wom8.jpg', 'name': 'Womens Handbag', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom1.jpg', 'name': 'Womens Top', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom2.jpg', 'name': 'Womens Skirt', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom3.jpg', 'name': 'Womens Jacket', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom4.jpg', 'name': 'Womens Dress', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom5.jpg', 'name': 'Womens Maxi', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom6.jpg', 'name': 'Womens Skirt', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom7.jpg', 'name': 'Womens Pants', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom8.jpg', 'name': 'Womens Skirts', 'price': 80.0},
     {'image': 'assets/images/products/womens/wom9.jpg', 'name': 'Womens Dress', 'price': 120.0},
     {'image': 'assets/images/products/womens/wom10.jpg', 'name': 'Womens Handbag', 'price': 80.0},
   ];
 
   final List<Map<String, dynamic>> accessoriesProducts = [
-    {'image': 'assets/images/products/accessories/acc1.jpg', 'name': 'Sunglasses', 'price': 50.0},
-    {'image': 'assets/images/products/accessories/acc2.jpg', 'name': 'Watch', 'price': 200.0},
-    {'image': 'assets/images/products/accessories/acc3.jpg', 'name': 'Sunglasses', 'price': 50.0},
-    {'image': 'assets/images/products/accessories/acc4.jpg', 'name': 'Watch', 'price': 200.0},
+    {'image': 'assets/images/products/accessories/acc1.jpg', 'name': 'Black Belt', 'price': 50.0},
+    {'image': 'assets/images/products/accessories/acc2.jpg', 'name': 'Brown Belt', 'price': 200.0},
+    {'image': 'assets/images/products/accessories/acc3.jpg', 'name': 'Perfume', 'price': 50.0},
+    {'image': 'assets/images/products/accessories/acc4.jpg', 'name': 'Cufflink', 'price': 200.0},
   ];
 
   @override
@@ -186,7 +186,7 @@ class _StorePageState extends State<StorePage> with SingleTickerProviderStateMix
                 crossAxisCount: 2, // 2 items per row
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
-                childAspectRatio: 0.7,
+                childAspectRatio: 0.6,
               ),
               itemCount: products.length,
               itemBuilder: (context, index) {
