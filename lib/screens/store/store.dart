@@ -170,7 +170,7 @@ class _StorePageState extends State<StorePage> with SingleTickerProviderStateMix
                 crossAxisCount: 2, // 2 items per row
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
-                childAspectRatio: 0.8,
+                childAspectRatio: 0.7,
               ),
               itemCount: products.length,
               itemBuilder: (context, index) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glitzstore/screens/onboarding/onboarding_screen1.dart';
 import 'screens/home/home_page.dart';
 import 'screens/store/store.dart';
 import 'screens/wishlist/wishlist.dart';
@@ -33,8 +34,9 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.light(), // Light theme
       darkTheme: ThemeData.dark(), // Dark theme
       themeMode: _themeMode, // Use themeMode for dynamic switching
-      initialRoute: '/home',
+      initialRoute: '/onboarding1',
       routes: {
+        '/onboarding1': (context) => const OnboardingScreen1(),
         '/home': (context) => const HomePage(),
         '/store': (context) => const StorePage(),
         '/wishlist': (context) => const WishlistPage(),
