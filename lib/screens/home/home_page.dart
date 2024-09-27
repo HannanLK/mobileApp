@@ -24,45 +24,70 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final List<IconData> categories = [
-    Icons.shopping_bag,
-    Icons.chair,
-    Icons.phone_android,
-    Icons.pages_rounded,
-    Icons.pets,
-    Icons.sports_basketball,
     Icons.watch,
-    Icons.computer,
-    Icons.kitchen,
+    Icons.change_history_rounded,
+    Icons.card_giftcard_rounded,
+    Icons.pages_rounded,
+    Icons.sports_basketball,
+    Icons.percent,
+    Icons.computer_rounded,
+    Icons.bookmark,
+    Icons.boy,
     Icons.local_florist,
   ];
 
   final List<String> categoryNames = [
-    'Sports', 'Furniture', 'Electronics', 'Clothes', 'Pets', 'Sports Gear', 'Watches', 'Computers', 'Kitchen', 'Garden'
+    'Watch', 'Limited', 'Gifts', 'Clothes', 'Sports Wear', 'Special Offer', 'Electronics', 'Blogs', 'Mens', 'Womens'
   ];
 
   final List<Map<String, dynamic>> newArrivals = [
     {
-      'image': 'assets/images/products/newArrivals/newar1.jpg',
-      'name': 'Nike Sneakers',
+      'image': 'assets/images/products/newArrivals/new1.jpg',
+      'name': 'Open Jacket',
       'price': '\$150',
     },
     {
-      'image': 'assets/images/products/newArrivals/newar2.jpg',
-      'name': 'Adidas Sports Shoe',
+      'image': 'assets/images/products/newArrivals/new2.jpg',
+      'name': 'Long Sleeve Shirt',
       'price': '\$120',
+    },
+    {
+      'image': 'assets/images/products/newArrivals/new3.jpg',
+      'name': 'Beach Wear',
+      'price': '\$130',
+    },
+    {
+      'image': 'assets/images/products/newArrivals/new4.jpg',
+      'name': 'Skirt',
+      'price': '\$140',
+    },
+    {
+      'image': 'assets/images/products/newArrivals/new5.jpg',
+      'name': 'Long Dress',
+      'price': '\$160',
     },
   ];
 
   final List<Map<String, dynamic>> featuredProducts = [
     {
-      'image': 'assets/images/products/featured/feat1.jpg',
+      'image': 'assets/images/products/featured/acc1.jpg',
+      'name': 'Leather Belts',
+      'price': '\$100',
+    },
+    {
+      'image': 'assets/images/products/featured/acc2.jpg',
+      'name': 'Reebok Classic',
+      'price': '\$110',
+    },
+    {
+      'image': 'assets/images/products/featured/acc3.jpg',
       'name': 'Puma Running Shoe',
       'price': '\$100',
     },
     {
-      'image': 'assets/images/products/featured/feat2.jpg',
-      'name': 'Reebok Classic',
-      'price': '\$110',
+      'image': 'assets/images/products/featured/acc4.jpg',
+      'name': 'Puma Running Shoe',
+      'price': '\$100',
     },
   ];
 

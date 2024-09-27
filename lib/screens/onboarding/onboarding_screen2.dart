@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/arrow_button.dart';
-import '../home/home_page.dart';
+import 'login.dart'; // Import the login screen
 
 class OnboardingScreen2 extends StatelessWidget {
   const OnboardingScreen2({super.key});
@@ -51,9 +51,10 @@ class OnboardingScreen2 extends StatelessWidget {
 
             // Next button at the bottom right corner
             ArrowButton(onPressed: () {
+              // Navigate to Login Page instead of HomePage
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => const LoginScreen()), // Move to LoginScreen
               );
             }),
           ],
