@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import '../cart/cart.dart'; // Import your cart page
+import '../product_details/product_detail1.dart'; // Import your product detail page
+import '../profile/profile.dart';
+import '../wishlist/wishlist.dart';
+import '../home/home_page.dart'; // For navigation to HomePage
 import '../../widgets/bottomnav.dart';
 
 class StorePage extends StatefulWidget {
@@ -8,44 +13,244 @@ class StorePage extends StatefulWidget {
   _StorePageState createState() => _StorePageState();
 }
 
-class _StorePageState extends State<StorePage> {
-  int _selectedIndex = 1; // Default to StorePage as selected
+class _StorePageState extends State<StorePage> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  bool isDarkTheme = false;
+  int _selectedIndex = 1; // Set default index to 'Store'
+  int _currentBannerIndex = 0; // Track the current banner index
+
+  final List<String> banners = [
+    'assets/images/banners/banner1.png',
+    'assets/images/banners/banner2.png',
+    'assets/images/banners/banner3.png',
+  ];
+
+  final List<Map<String, dynamic>> mensProducts = [
+    {'image': 'assets/images/products/mens/product1.jpg', 'name': 'Mens Jacket', 'price': 100.0},
+    {'image': 'assets/images/products/mens/product2.jpg', 'name': 'Mens Sneakers', 'price': 150.0},
+  ];
+
+  final List<Map<String, dynamic>> womensProducts = [
+    {'image': 'assets/images/products/womens/product1.jpg', 'name': 'Womens Dress', 'price': 120.0},
+    {'image': 'assets/images/products/womens/product2.jpg', 'name': 'Womens Handbag', 'price': 80.0},
+  ];
+
+  final List<Map<String, dynamic>> accessoriesProducts = [
+    {'image': 'assets/images/products/accessories/product1.jpg', 'name': 'Sunglasses', 'price': 50.0},
+    {'image': 'assets/images/products/accessories/product2.jpg', 'name': 'Watch', 'price': 200.0},
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = index; // Update selected index for BottomNav
     });
 
-    // Handle navigation
     switch (index) {
       case 0:
-        Navigator.pushReplacementNamed(context, '/home'); // Navigate to HomePage
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
         break;
       case 1:
-      // Already on StorePage, no action required
+      // Stay on the Store Page
         break;
       case 2:
-        Navigator.pushReplacementNamed(context, '/wishlist'); // Navigate to WishlistPage
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WishlistPage()));
         break;
       case 3:
-        Navigator.pushReplacementNamed(context, '/profile'); // Navigate to ProfilePage
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
         break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Store'),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: isDarkTheme ? Colors.black : Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('Store', style: TextStyle(color: isDarkTheme ? Colors.white : Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart, color: isDarkTheme ? Colors.white : Colors.black),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
+            },
+          ),
+        ],
+        bottom: TabBar(
+          controller: _tabController,
+          indicatorColor: Colors.blueAccent,
+          labelColor: isDarkTheme ? Colors.white : Colors.black,
+          unselectedLabelColor: isDarkTheme ? Colors.white70 : Colors.black54,
+          tabs: const [
+            Tab(text: 'Mens'),
+            Tab(text: 'Womens'),
+            Tab(text: 'Accessories'),
+          ],
+        ),
       ),
-      body: const Center(
-        child: Text('Welcome to the Store Page!'),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          _buildProductGrid(mensProducts),
+          _buildProductGrid(womensProducts),
+          _buildProductGrid(accessoriesProducts),
+        ],
       ),
       bottomNavigationBar: BottomNav(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+      ),
+    );
+  }
+
+  // Widget for the scrollable banner section with progress dots
+  Widget _buildBannerSection() {
+    return Column(
+      children: [
+        SizedBox(
+          height: 160,
+          child: PageView.builder(
+            itemCount: banners.length,
+            onPageChanged: (index) {
+              setState(() {
+                _currentBannerIndex = index; // Update banner index when changed
+              });
+            },
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(banners[index], fit: BoxFit.cover),
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 8), // Add space between banner and dots
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(banners.length, (index) {
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              width: _currentBannerIndex == index ? 10 : 8,
+              height: _currentBannerIndex == index ? 10 : 8,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentBannerIndex == index ? Colors.blueAccent : Colors.grey,
+              ),
+            );
+          }),
+        ),
+      ],
+    );
+  }
+
+  // Widget to display products in a grid
+  Widget _buildProductGrid(List<Map<String, dynamic>> products) {
+    return Column(
+      children: [
+        const SizedBox(height: 16),
+        _buildBannerSection(), // Insert scrollable banner section with dots
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // 2 items per row
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+                childAspectRatio: 0.8,
+              ),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return _buildProductCard(products[index]);
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Widget to display individual product card
+  Widget _buildProductCard(Map<String, dynamic> product) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductDetail1()));
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: isDarkTheme ? Colors.grey[850] : Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Image.asset(
+                  product['image'],
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product['name'],
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: isDarkTheme ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '\$${product['price'].toStringAsFixed(2)}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: isDarkTheme ? Colors.white70 : Colors.black54,
+                        ),
+                      ),
+                      IconButton(
+                        icon: CircleAvatar(
+                          backgroundColor: isDarkTheme ? Colors.white : Colors.black,
+                          radius: 16, // Adjust size for circle icon
+                          child: Icon(Icons.shopping_cart_outlined, color: isDarkTheme ? Colors.black : Colors.white),
+                        ),
+                        onPressed: () {
+                          // Add to cart logic or navigate to cart
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
