@@ -26,18 +26,34 @@ class _StorePageState extends State<StorePage> with SingleTickerProviderStateMix
   ];
 
   final List<Map<String, dynamic>> mensProducts = [
-    {'image': 'assets/images/products/mens/product1.jpg', 'name': 'Mens Jacket', 'price': 100.0},
-    {'image': 'assets/images/products/mens/product2.jpg', 'name': 'Mens Sneakers', 'price': 150.0},
+    {'image': 'assets/images/products/mens/men1.jpg', 'name': 'Black Kit', 'price': 100.0},
+    {'image': 'assets/images/products/mens/men2.jpg', 'name': 'Party Shirt', 'price': 150.0},
+    {'image': 'assets/images/products/mens/men3.jpg', 'name': 'Long Sleeve Shirt', 'price': 170.0},
+    {'image': 'assets/images/products/mens/men4.jpg', 'name': 'Formal', 'price': 180.0},
+    {'image': 'assets/images/products/mens/men5.jpg', 'name': 'Casual', 'price': 190.0},
+    {'image': 'assets/images/products/mens/men6.jpg', 'name': 'Beach', 'price': 120.0},
+    {'image': 'assets/images/products/mens/men7.jpg', 'name': 'JVP', 'price': 250.0},
+    {'image': 'assets/images/products/mens/men8.jpg', 'name': 'Wedding', 'price': 350.0},
   ];
 
   final List<Map<String, dynamic>> womensProducts = [
-    {'image': 'assets/images/products/womens/product1.jpg', 'name': 'Womens Dress', 'price': 120.0},
-    {'image': 'assets/images/products/womens/product2.jpg', 'name': 'Womens Handbag', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom1.jpg', 'name': 'Womens Dress', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom2.jpg', 'name': 'Womens Handbag', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom3.jpg', 'name': 'Womens Dress', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom4.jpg', 'name': 'Womens Handbag', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom5.jpg', 'name': 'Womens Dress', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom6.jpg', 'name': 'Womens Handbag', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom7.jpg', 'name': 'Womens Dress', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom8.jpg', 'name': 'Womens Handbag', 'price': 80.0},
+    {'image': 'assets/images/products/womens/wom9.jpg', 'name': 'Womens Dress', 'price': 120.0},
+    {'image': 'assets/images/products/womens/wom10.jpg', 'name': 'Womens Handbag', 'price': 80.0},
   ];
 
   final List<Map<String, dynamic>> accessoriesProducts = [
-    {'image': 'assets/images/products/accessories/product1.jpg', 'name': 'Sunglasses', 'price': 50.0},
-    {'image': 'assets/images/products/accessories/product2.jpg', 'name': 'Watch', 'price': 200.0},
+    {'image': 'assets/images/products/accessories/acc1.jpg', 'name': 'Sunglasses', 'price': 50.0},
+    {'image': 'assets/images/products/accessories/acc2.jpg', 'name': 'Watch', 'price': 200.0},
+    {'image': 'assets/images/products/accessories/acc3.jpg', 'name': 'Sunglasses', 'price': 50.0},
+    {'image': 'assets/images/products/accessories/acc4.jpg', 'name': 'Watch', 'price': 200.0},
   ];
 
   @override
