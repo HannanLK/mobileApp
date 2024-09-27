@@ -18,9 +18,9 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   final List<String> banners = [
+    'assets/images/banners/banner0.png',
     'assets/images/banners/banner1.png',
     'assets/images/banners/banner2.png',
-    'assets/images/banners/banner3.png',
   ];
 
   final List<IconData> categories = [
@@ -76,18 +76,18 @@ class _HomePageState extends State<HomePage> {
     },
     {
       'image': 'assets/images/products/featured/acc2.jpg',
-      'name': 'Reebok Classic',
+      'name': 'Tops',
       'price': '\$110',
     },
     {
       'image': 'assets/images/products/featured/acc3.jpg',
-      'name': 'Puma Running Shoe',
-      'price': '\$100',
+      'name': 'Yardley Perfumes',
+      'price': '\$120',
     },
     {
       'image': 'assets/images/products/featured/acc4.jpg',
-      'name': 'Puma Running Shoe',
-      'price': '\$100',
+      'name': 'Long Sleeve Shirt',
+      'price': '\$150',
     },
   ];
 

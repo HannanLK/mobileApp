@@ -57,7 +57,7 @@ class _ProductDetail1State extends State<ProductDetail1> {
                 children: [
                   const SizedBox(height: 16),
                   Text(
-                    'Nike Air Max Red & Black',
+                    'Pencil Skirt',
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -81,12 +81,12 @@ class _ProductDetail1State extends State<ProductDetail1> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Nike',
+                    'GFlock',
                     style: TextStyle(color: isDarkTheme ? Colors.blueAccent : Colors.blue),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'This is a Product description for Nike Air Max. There are more things that can be added but I am just placing some text to give you an idea of what it will look like.',
+                    'Explore our elegant evening wear collection, featuring chic designs and luxurious fabrics for every special occasion. Shine effortlessly at your next event.',
                     style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.justify, // Justify the description text
                   ),

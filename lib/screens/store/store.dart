@@ -21,8 +21,8 @@ class _StorePageState extends State<StorePage> with SingleTickerProviderStateMix
 
   final List<String> banners = [
     'assets/images/banners/banner1.png',
+    'assets/images/banners/banner0.png',
     'assets/images/banners/banner2.png',
-    'assets/images/banners/banner3.png',
   ];
 
   final List<Map<String, dynamic>> mensProducts = [
